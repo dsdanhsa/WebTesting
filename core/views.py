@@ -18,19 +18,20 @@ def index(request):
 
 def dashboard(request):
     users = User.objects.all()
-    active_users = User.objects.all().filter(is_active=True)
-    companies = Company.objects.all()
-    projects = Project.objects.all()
-    tasks = Task.objects.all()
-    context = {
-        'users' : users,
-        'active_users' : active_users,
-        'companies' : companies,
-        'projects' : projects,
-        'tasks' : tasks,
-    }
-    return render(request, 'core/dashboard.html', context)
+    active_users = User.objects.filter(is_active=True)
+    companies_count = Company.objects.count()
+    projects_count = Project.objects.count()
+    tasks_count = Task.objects.count()
 
+    context = {
+        'users': users,
+        'active_users': active_users,
+        'companies_count': companies_count,
+        'projects_count': projects_count,
+        'tasks_count': tasks_count,
+    }
+
+    return render(request, 'core/dashboard.html', context)
 
 
 def login_view(request):
